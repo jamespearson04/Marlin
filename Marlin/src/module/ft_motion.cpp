@@ -417,9 +417,9 @@ void FxdTiCtrl::init() {
 // Loads / converts block data from planner to fixed-time control variables.
 void FxdTiCtrl::loadBlockData(block_t * const current_block) {
   #ifdef COREXY
-  const float max_feedrate = (0.707106 * FTM_STEPPER_FS) / _MAX(planner.settings.axis_steps_per_mm[X_AXIS], FTM_STEPPER_FS / planner.settings.axis_steps_per_mm[Y_AXIS]);
+  const float max_feedrate = (0.707106 * FTM_STEPPER_FS) / _MAX(planner.settings.axis_steps_per_mm[X_AXIS], planner.settings.axis_steps_per_mm[Y_AXIS]);
   #else
-  const float max_feedrate = FTM_STEPPER_FS / _MAX(planner.settings.axis_steps_per_mm[X_AXIS], FTM_STEPPER_FS / planner.settings.axis_steps_per_mm[Y_AXIS]);
+  const float max_feedrate = FTM_STEPPER_FS / _MAX(planner.settings.axis_steps_per_mm[X_AXIS], planner.settings.axis_steps_per_mm[Y_AXIS]);
   #endif
   
   const float totalLength = current_block->millimeters,
