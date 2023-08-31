@@ -1137,9 +1137,6 @@
   #define FTM_TS 0.001f                                           // (s) Time step for trajectory generation. (1 / FTM_FS)
   #if ENABLED(COREXY)
     #define FTM_STEPPER_FS 40000                              // (Hz) Frequency for stepper I/O update.
-    #define FTM_STEPS_PER_UNIT_TIME (FTM_STEPPER_FS / FTM_FS) // Interpolated stepper commands per unit time.
-
-    #define FTM_CTS_COMPARE_VAL (FTM_STEPS_PER_UNIT_TIME / 2) // Comparison value used in interpolation algorithm.
 
     // This value may be configured to adjust duration to consume the command buffer.
     // Try increasing this value if stepper motion is not smooth.
@@ -1148,9 +1145,6 @@
                                                               // If you run out of memory, fallback to 3000 and increase progressively
   #else
     #define FTM_STEPPER_FS 20000                              // (Hz) Frequency for stepper I/O update.
-    #define FTM_STEPS_PER_UNIT_TIME (FTM_STEPPER_FS / FTM_FS) // Interpolated stepper commands per unit time.
-
-    #define FTM_CTS_COMPARE_VAL (FTM_STEPS_PER_UNIT_TIME / 2) // Comparison value used in interpolation algorithm.
 
     // This value may be configured to adjust duration to consume the command buffer.
     // Try increasing this value if stepper motion is not smooth.
@@ -1159,6 +1153,8 @@
                                                               // If you run out of memory, fallback to 1000 and increase progressively
   #endif
 
+#define FTM_STEPS_PER_UNIT_TIME (FTM_STEPPER_FS / FTM_FS)       // Interpolated stepper commands per unit time.
+#define FTM_CTS_COMPARE_VAL (FTM_STEPS_PER_UNIT_TIME / 2)       // Comparison value used in interpolation algorithm.
 #define FTM_MIN_TICKS ((STEPPER_TIMER_RATE) / (FTM_STEPPER_FS)) // Minimum stepper ticks between steps.
 #define FTM_MIN_SHAPE_FREQ 10                                   // Minimum shaping frequency.
 #define FTM_ZMAX 100                                            // Maximum delays for shaping functions (even numbers only!).
